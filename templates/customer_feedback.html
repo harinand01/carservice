@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Give Feedback</h2>
+{% if message %}
+<div class="alert">{{ message }}</div>
+{% endif %}
+<form method="post" action="/customer/feedback" class="form-card">
+    <label>Booking</label>
+    <select name="booking_id" required>
+        <option value="">-- Select Completed Booking --</option>
+        {% for b in eligible %}
+        <option value="{{ b.booking_id }}">#{{ b.booking_id }} - {{ b.service_name }} ({{ b.current_status }})</option>
+        {% endfor %}
+    </select>
+    <label>Rating (1–5)</label>
+    <input type="number" name="rating" min="1" max="5" required>
+    <label>Comments</label>
+    <textarea name="comments"></textarea>
+    <button type="submit">Submit Feedback</button>
+</form>
+{% if not eligible %}
+<p>No completed bookings available for feedback.</p>
+{% endif %}
+{% endblock %}

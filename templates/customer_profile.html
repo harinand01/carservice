@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>My Profile</h2>
+<form method="post" action="/customer/profile" class="form-card">
+    <label>Full Name</label>
+    <input type="text" name="full_name" value="{{ customer.full_name if customer else '' }}" required>
+    <label>Phone</label>
+    <input type="text" name="phone" value="{{ customer.phone if customer else '' }}" required>
+    <label>Address</label>
+    <textarea name="address" required>{{ customer.address if customer else '' }}</textarea>
+    <label>City</label>
+    <input type="text" name="city" value="{{ customer.city if customer else '' }}" required>
+    <button type="submit">Save Profile</button>
+</form>
+{% endblock %}

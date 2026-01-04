@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Mechanic / Staff Management</h2>
+
+{% if message %}
+<div class="alert">{{ message }}</div>
+{% endif %}
+
+<h3>Add Mechanic</h3>
+<form method="post" action="/admin/mechanics" class="form-card">
+    <input type="hidden" name="action" value="add">
+    <label>Full Name</label>
+    <input type="text" name="full_name" required>
+    <label>Email (login email)</label>
+    <input type="email" name="email" required>
+    <label>Phone</label>
+    <input type="text" name="phone" required>
+    <label>Specialization</label>
+    <input type="text" name="specialization">
+    <label>Initial Password</label>
+    <input type="password" name="password" required>
+    <button type="submit">Add Mechanic</button>
+</form>
+
+<h3 style="margin-top:2rem;">Existing Mechanics</h3>
+<table class="table">
+    <tr>
+        <th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Specialization</th><th>Active</th><th>Action</th>
+    </tr>
+    {% for m in mechanics %}
+    <tr>
+        <td>{{ m.mechanic_id }}</td>
+        <td>{{ m.full_name }}</td>
+        <td>{{ m.email }}</td>
+        <td>{{ m.phone }}</td>
+        <td>{{ m.specialization or '-' }}</td>
+        <td>{{ 'Yes' if m.is_active else 'No' }}</td>
+        <td>
+            <form method="post" action="/admin/mechanics" style="display:inline;">
+                <input type="hidden" name="action" value="toggle">
+                <input type="hidden" name="mechanic_id" value="{{ m.mechanic_id }}">
+                {% if m.is_active %}
+                    <input type="hidden" name="new_status" value="0">
+                    <button type="submit">Deactivate</button>
+                {% else %}
+                    <input type="hidden" name="new_status" value="1">
+                    <button type="submit">Activate</button>
+                {% endif %}
+            </form>
+        </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="7">No mechanics added yet.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Welcome to Car Service &amp; Booking System</h1>
+<p>This prototype implements your main DFD functions:</p>
+<ul>
+    <li>Customer: profile &amp; vehicles, browse services, book service, track status, feedback</li>
+    <li>Admin: manage services &amp; time slots</li>
+</ul>
+{% if session %}
+<p>You are logged in as <strong>{{ session.email }}</strong> ({{ session.role }}). Go to your <a href="/dashboard">dashboard</a>.</p>
+{% else %}
+<p>Please <a href="/login">login</a> or <a href="/register">register</a> to continue.</p>
+{% endif %}
+{% endblock %}

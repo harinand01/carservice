@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Mechanic Dashboard</h2>
+<p>Your assigned tasks (for future extension).</p>
+<table class="table">
+    <tr>
+        <th>ID</th><th>Vehicle</th><th>Service</th><th>Status</th><th>Date</th>
+    </tr>
+    {% for t in tasks %}
+    <tr>
+        <td>{{ t.booking_id }}</td>
+        <td>{{ t.vehicle_number }}</td>
+        <td>{{ t.service_name }}</td>
+        <td>{{ t.current_status }}</td>
+        <td>{{ t.booking_date }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5">No tasks assigned yet.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

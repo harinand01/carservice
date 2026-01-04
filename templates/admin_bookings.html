@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Booking Management</h2>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Customer</th>
+        <th>Vehicle</th>
+        <th>Service</th>
+        <th>Slot</th>
+        <th>Status</th>
+        <th>Mechanic</th>
+        <th>Action</th>
+    </tr>
+    {% for b in bookings %}
+    <tr>
+        <td>{{ b.booking_id }}</td>
+        <td>{{ b.customer_name }}</td>
+        <td>{{ b.vehicle_number }}</td>
+        <td>{{ b.service_name }}</td>
+        <td>{{ b.slot_date }} {{ b.start_time }} - {{ b.end_time }}</td>
+        <td>{{ b.current_status }}</td>
+        <td>{{ b.mechanic_name or "Not Assigned" }}</td>
+        <td>
+            <form method="post" action="/admin/bookings">
+                <input type="hidden" name="booking_id" value="{{ b.booking_id }}">
+
+                <select name="status">
+                    <option value="">--Status--</option>
+                    <option>BOOKED</option>
+                    <option>IN_PROGRESS</option>
+                    <option>WAITING_FOR_PARTS</option>
+                    <option>COMPLETED</option>
+                    <option>DELIVERED</option>
+                    <option>CANCELLED</option>
+                </select>
+
+                <select name="mechanic_id">
+                    <option value="">--Mechanic--</option>
+                    {% for m in mechanics %}
+                        <option value="{{ m.mechanic_id }}">
+                            {{ m.full_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit">Update</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

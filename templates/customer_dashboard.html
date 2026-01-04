@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Customer Dashboard</h2>
+<p>Your recent bookings:</p>
+<table class="table">
+    <tr>
+        <th>ID</th><th>Vehicle</th><th>Service</th><th>Status</th><th>Date</th>
+    </tr>
+    {% for b in bookings %}
+    <tr>
+        <td>{{ b.booking_id }}</td>
+        <td>{{ b.vehicle_number }}</td>
+        <td>{{ b.service_name }}</td>
+        <td>{{ b.current_status }}</td>
+        <td>{{ b.booking_date }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5">No bookings yet.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

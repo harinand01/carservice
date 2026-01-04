@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>My Assigned Tasks</h2>
+
+{% if message %}
+<div class="alert">{{ message }}</div>
+{% endif %}
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Customer</th>
+        <th>Vehicle</th>
+        <th>Service</th>
+        <th>Slot</th>
+        <th>Current Status</th>
+        <th>Remarks</th>
+        <th>Update</th>
+    </tr>
+    {% for t in tasks %}
+    <tr>
+        <td>{{ t.booking_id }}</td>
+        <td>{{ t.customer_name }}</td>
+        <td>{{ t.vehicle_number }} ({{ t.brand }} {{ t.model }})</td>
+        <td>{{ t.service_name }}</td>
+        <td>{{ t.slot_date }} {{ t.start_time }} - {{ t.end_time }}</td>
+        <td>{{ t.current_status }}</td>
+        <td>{{ t.remarks or '-' }}</td>
+        <td>
+            <form method="post" action="/mechanic/tasks" class="form-card">
+                <input type="hidden" name="booking_id" value="{{ t.booking_id }}">
+                <select name="status" required>
+                    <option value="">--Status--</option>
+                    
+                    <option>IN_PROGRESS</option>
+                    <option>WAITING_FOR_PARTS</option>
+                    <option>COMPLETED</option>
+                  
+                </select>
+                <textarea name="remarks" placeholder="Remarks (optional)">{{ t.remarks or '' }}</textarea>
+                <button type="submit">Save</button>
+            </form>
+        </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="8">No tasks assigned.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

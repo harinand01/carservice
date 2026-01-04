@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Work History & Feedback</h2>
+
+<table class="table">
+    <tr>
+        <th>Booking ID</th>
+        <th>Customer</th>
+        <th>Vehicle</th>
+        <th>Service</th>
+        <th>Status</th>
+        <th>Completed On</th>
+        <th>Rating</th>
+        <th>Feedback</th>
+        <th>Feedback Date</th>
+    </tr>
+    {% for h in history %}
+    <tr>
+        <td>{{ h.booking_id }}</td>
+        <td>{{ h.customer_name }}</td>
+        <td>{{ h.vehicle_number }}</td>
+        <td>{{ h.service_name }}</td>
+        <td>{{ h.current_status }}</td>
+        <td>{{ h.booking_date }}</td>
+        <td>{{ h.rating or '-' }}</td>
+        <td>{{ h.comments or '-' }}</td>
+        <td>{{ h.feedback_date or '-' }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="9">No completed jobs yet.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

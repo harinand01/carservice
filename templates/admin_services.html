@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Manage Services (Admin)</h2>
+
+<form method="post" action="/admin/services" class="form-card">
+    <h3>Add New Service</h3>
+    <label>Service Name</label>
+    <input type="text" name="service_name" required>
+    <label>Base Price</label>
+    <input type="number" step="0.01" name="base_price" required>
+    <label>Estimated Duration (minutes)</label>
+    <input type="number" name="estimated_duration">
+    <label>Description</label>
+    <textarea name="description"></textarea>
+    <button type="submit">Save Service</button>
+</form>
+
+<h3 style="margin-top:2rem;">Existing Services</h3>
+<table class="table">
+    <tr>
+        <th>ID</th><th>Name</th><th>Price</th><th>Duration</th><th>Active</th>
+    </tr>
+    {% for s in services %}
+    <tr>
+        <td>{{ s.service_id }}</td>
+        <td>{{ s.service_name }}</td>
+        <td>{{ s.base_price }}</td>
+        <td>{{ s.estimated_duration or '-' }}</td>
+        <td>{{ 'Yes' if s.is_active else 'No' }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5">No services defined yet.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

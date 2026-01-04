@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Available Services</h2>
+<table class="table">
+    <tr>
+        <th>Name</th><th>Price</th><th>Duration</th><th>Description</th>
+    </tr>
+    {% for s in services %}
+    <tr>
+        <td>{{ s.service_name }}</td>
+        <td>{{ s.base_price }}</td>
+        <td>{{ s.estimated_duration or '-' }}</td>
+        <td>{{ s.description or '-' }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="4">No active services available. Please check later.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

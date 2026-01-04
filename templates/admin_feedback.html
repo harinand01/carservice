@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Customer Feedback Review</h2>
+
+<table class="table">
+    <tr>
+        <th>ID</th><th>Customer</th><th>Service</th><th>Rating</th><th>Comments</th><th>Date</th>
+    </tr>
+    {% for f in feedback_list %}
+    <tr>
+        <td>{{ f.feedback_id }}</td>
+        <td>{{ f.customer_name }}</td>
+        <td>{{ f.service_name }}</td>
+        <td>{{ f.rating }}</td>
+        <td>{{ f.comments or '-' }}</td>
+        <td>{{ f.created_at }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6">No feedback yet.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title or 'Car Service & Booking System' }}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-brand">Car Service &amp; Booking</div>
+    <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        {% if session %}
+            <li><a href="/dashboard">Dashboard ({{ session.role }})</a></li>
+            {% if session.role == 'ADMIN' %}
+              <li><a href="/admin/services">Service Mgmt</a></li>
+              <li><a href="/admin/slots">Time Slots</a></li>
+              <li><a href="/admin/bookings">Bookings</a></li>
+              <li><a href="/admin/mechanics">Mechanics</a></li>
+              <li><a href="/admin/payments">Payments</a></li>
+              <li><a href="/admin/feedback">Feedback</a></li>
+            {% elif session.role == 'CUSTOMER' %}
+                 <li><a href="/customer/profile">Profile</a></li>
+                 <li><a href="/customer/vehicles">Vehicles</a></li>
+                 <li><a href="/customer/services">Services</a></li>
+                 <li><a href="/customer/book">Book</a></li>
+                 <li><a href="/customer/bookings">My Bookings</a></li>
+                 <li><a href="/customer/feedback">Feedback</a></li>
+            {% elif session.role == 'MECHANIC' %}
+              
+                <li><a href="/mechanic/tasks">My Tasks</a></li>
+                <li><a href="/mechanic/history">Work History</a></li>
+            {% endif %}
+
+            <li><a href="/logout">Logout</a></li>
+        {% else %}
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
+        {% endif %}
+    </ul>
+</nav>
+<main class="container">
+    {% block content %}{% endblock %}
+</main>
+<footer class="footer">
+    <p>&copy; 2025 Car Service &amp; Booking System</p>
+</footer>
+</body>
+</html>

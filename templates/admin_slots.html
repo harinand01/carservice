@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Manage Time Slots (Admin)</h2>
+
+<form method="post" action="/admin/slots" class="form-card">
+    <h3>Add New Time Slot</h3>
+    <label>Date</label>
+    <input type="date" name="slot_date" required>
+    <label>Start Time</label>
+    <input type="time" name="start_time" required>
+    <label>End Time</label>
+    <input type="time" name="end_time" required>
+    <label>Max Bookings</label>
+    <input type="number" name="max_bookings" value="3" required>
+    <button type="submit">Save Slot</button>
+</form>
+
+<h3 style="margin-top:2rem;">Existing Slots</h3>
+<table class="table">
+    <tr>
+        <th>ID</th><th>Date</th><th>Start</th><th>End</th><th>Max Bookings</th></tr>
+    {% for s in slots %}
+    <tr>
+        <td>{{ s.slot_id }}</td>
+        <td>{{ s.slot_date }}</td>
+        <td>{{ s.start_time }}</td>
+        <td>{{ s.end_time }}</td>
+        <td>{{ s.max_bookings }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5">No slots defined yet.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

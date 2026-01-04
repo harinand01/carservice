@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>My Vehicles</h2>
+
+<form method="post" action="/customer/vehicles" class="form-card">
+    <input type="hidden" name="action" value="add">
+    <h3>Add Vehicle</h3>
+    <label>Registration Number</label>
+    <input type="text" name="vehicle_number" required>
+    <label>Brand</label>
+    <input type="text" name="brand" required>
+    <label>Model</label>
+    <input type="text" name="model" required>
+    <label>Fuel Type</label>
+    <select name="fuel_type">
+        <option value="PETROL">Petrol</option>
+        <option value="DIESEL">Diesel</option>
+        <option value="CNG">CNG</option>
+        <option value="ELECTRIC">Electric</option>
+    </select>
+    <label>Manufacture Year</label>
+    <input type="number" name="manufacture_year">
+    <label>Color</label>
+    <input type="text" name="color">
+    <button type="submit">Add Vehicle</button>
+</form>
+
+<h3 style="margin-top:2rem;">Existing Vehicles</h3>
+<table class="table">
+    <tr>
+        <th>ID</th><th>Number</th><th>Brand</th><th>Model</th><th>Fuel</th><th>Year</th><th>Color</th><th>Action</th>
+    </tr>
+    {% for v in vehicles %}
+    <tr>
+        <td>{{ v.vehicle_id }}</td>
+        <td>{{ v.vehicle_number }}</td>
+        <td>{{ v.brand }}</td>
+        <td>{{ v.model }}</td>
+        <td>{{ v.fuel_type }}</td>
+        <td>{{ v.manufacture_year or '-' }}</td>
+        <td>{{ v.color or '-' }}</td>
+        <td>
+            <form method="post" action="/customer/vehicles" style="display:inline;">
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="vehicle_id" value="{{ v.vehicle_id }}">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="8">No vehicles added yet.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+<div class="grid">
+    <div class="card">Customers: {{ stats.customers.c }}</div>
+    <div class="card">Mechanics: {{ stats.mechanics.c }}</div>
+    <div class="card">Vehicles: {{ stats.vehicles.c }}</div>
+    <div class="card">Bookings: {{ stats.bookings.c }}</div>
+</div>
+<p>Use the menu above to manage services and time slots.</p>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Customer Registration</h2>
+{% if error %}
+<div class="alert alert-error">{{ error }}</div>
+{% endif %}
+<form method="post" action="/register" class="form-card">
+    <label>Full Name</label>
+    <input type="text" name="full_name" required>
+    <label>Email</label>
+    <input type="email" name="email" required>
+    <label>Phone</label>
+    <input type="text" name="phone" required>
+    <label>Address</label>
+    <textarea name="address" required></textarea>
+    <label>City</label>
+    <input type="text" name="city" required>
+    <label>Password</label>
+    <input type="password" name="password" required>
+    <label>Confirm Password</label>
+    <input type="password" name="confirm_password" required>
+    <button type="submit">Register</button>
+</form>
+{% endblock %}
